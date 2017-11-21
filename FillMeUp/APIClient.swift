@@ -14,12 +14,14 @@ typealias ServiceResponse =  (JSON , NSError?, Bool) -> Void
 
 class APIClient: NSObject
 {
+ static let sharedInstance = APIClient()
     func request(urlString:String,parameters:String? = nil ,onCompletion:@escaping ServiceResponse)
     {
-        Alamofire.request("").responseJSON { (response) in
+        Alamofire.request(urlString).responseJSON { (response) in
             if let data = response.result.value {
              
-                
+                let json = JSON(data: data as! Data)
+                onCompletion(json,nil,true)
         }
         }
     

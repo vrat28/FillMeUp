@@ -11,7 +11,7 @@ import UIKit
 
 class Utility : NSObject
 {
-    func calculateScore(from sentences:[Sentence])-> Int
+  class  func calculateScore(from sentences:[Sentence])-> Int
     {
         var score = 0
         for sentence in sentences {
@@ -24,7 +24,7 @@ class Utility : NSObject
         return score
     }
     
-    func splitSentences(from paragraph:String,limit:Int)->[String]
+  class func splitSentences(from paragraph:String,limit:Int)->[String]
     {
         // Tokenize Strings based on lexical tokens.
         // So Strings splited should be logical sentences and not directly split on '.'
@@ -47,9 +47,7 @@ class Utility : NSObject
                     in: NSCharacterSet.whitespaces))
             prev = paragraph.index(after: ix)
         }
-        
-        
-        
+
         var count = result.count
         if count < Constant.kMaxSentences
         {
@@ -63,6 +61,13 @@ class Utility : NSObject
         }
         
         return result
+    }
+    
+    class func reloadTableViewOnMainThread(tableView:UITableView) {
+        
+        DispatchQueue.main.async {
+            tableView.reloadData()
+        }
     }
     
 }

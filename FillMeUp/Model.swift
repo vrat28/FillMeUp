@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SwiftyJSON
 class Sentence {
     
     var text:String!
@@ -15,4 +15,16 @@ class Sentence {
     var answer:String?
     var missingLength:Int?
     
+    init(with text:String)
+    {
+        self.text = text
+    }
+    
+}
+
+class GameLevel :NSObject {
+    
+    var level:Int = 1
+    var questionCount:Int = 10
+    var difficultyMultiplier = 1
 }

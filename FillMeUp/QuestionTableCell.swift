@@ -12,17 +12,17 @@ class QuestionTableCell: UITableViewCell {
 
     @IBOutlet weak var lblText:UILabel!
     
+    var sentence:Sentence!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-    func updateData(sentence:Sentence)
-   {
     
-    
+    func configureCell()
+    {
+        
     }
-    
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {
