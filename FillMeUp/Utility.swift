@@ -11,6 +11,19 @@ import UIKit
 
 class Utility : NSObject
 {
+    func calculateScore(from sentences:[Sentence])-> Int
+    {
+        var score = 0
+        for sentence in sentences {
+            if let hidden = sentence.missingText, let answer = sentence.answer {
+                if hidden == answer {
+                    score = score  + 1
+                }
+            }
+        }
+        return score
+    }
+    
     func splitSentences(from paragraph:String,limit:Int)->[String]
     {
         // Tokenize Strings based on lexical tokens.

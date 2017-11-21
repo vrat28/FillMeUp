@@ -12,7 +12,7 @@ class Sentence {
     
     var text:String!
     var missingText:String?
-    
+    var answer:String?
     var missingLength:Int?
     
 }
