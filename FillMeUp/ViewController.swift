@@ -106,6 +106,12 @@ class ViewController: UIViewController {
     
     //MARK: - Picker functions
     
+  @IBAction func pickerDoneButtonClicked(sender:UIBarButtonItem)
+    {
+        hidePicker()
+        
+    }
+    
     func showPicker()
     {
         let pickerHeight = viewPickerContainer.frame.size.height
