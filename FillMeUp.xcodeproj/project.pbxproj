@@ -19,6 +19,7 @@
 		374035881FC1B5BB00232D11 /* URLConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374035871FC1B5BB00232D11 /* URLConstant.swift */; };
 		3740358B1FC1B5E800232D11 /* QuestionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3740358A1FC1B5E800232D11 /* QuestionTableCell.swift */; };
 		3740358D1FC1B5FA00232D11 /* Identifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3740358C1FC1B5FA00232D11 /* Identifiers.swift */; };
+		375300691FC4E54B00EB0D6E /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375300681FC4E54B00EB0D6E /* Strings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		374035871FC1B5BB00232D11 /* URLConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConstant.swift; sourceTree = "<group>"; };
 		3740358A1FC1B5E800232D11 /* QuestionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionTableCell.swift; sourceTree = "<group>"; };
 		3740358C1FC1B5FA00232D11 /* Identifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiers.swift; sourceTree = "<group>"; };
+		375300681FC4E54B00EB0D6E /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		6BA4310D622485EED56C8874 /* Pods-FillMeUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillMeUp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FillMeUp/Pods-FillMeUp.release.xcconfig"; sourceTree = "<group>"; };
 		B7042E9DD0A0A6A7848AED77 /* Pods-FillMeUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillMeUp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FillMeUp/Pods-FillMeUp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,6 +103,7 @@
 			children = (
 				374035871FC1B5BB00232D11 /* URLConstant.swift */,
 				3740358C1FC1B5FA00232D11 /* Identifiers.swift */,
+				375300681FC4E54B00EB0D6E /* Strings.swift */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				374035861FC1B5AB00232D11 /* Model.swift in Sources */,
+				375300691FC4E54B00EB0D6E /* Strings.swift in Sources */,
 				374035821FC1B57B00232D11 /* Utility.swift in Sources */,
 				3740358D1FC1B5FA00232D11 /* Identifiers.swift in Sources */,
 				3740358B1FC1B5E800232D11 /* QuestionTableCell.swift in Sources */,
@@ -435,6 +439,7 @@
 				3740357E1FC1B06700232D11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
