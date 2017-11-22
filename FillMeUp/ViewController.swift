@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblScore:UILabel!
     
     var arrSentences:[Sentence] = []
-    var arrHints:[String] = [""]
+    var arrHints:[String] = [" "]
     
     // This gameInfo will manage user game difficults. as the user successfully answers all the answers , increase the level/ number of questions per level
     
@@ -85,6 +85,8 @@ class ViewController: UIViewController {
       self.arrSentences =  arrStrings.map({ (string) -> Sentence in
             return Sentence(with: string)
         })
+        
+        WordJumble.prepareQuestions(sentences: self.arrSentences, with: gameInfo)
         
         // Reload tableView on Dispatch Queue
         Utility.reloadTableViewOnMainThread(tableView: self.tableView)

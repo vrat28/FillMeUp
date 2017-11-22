@@ -21,7 +21,23 @@ class QuestionTableCell: UITableViewCell {
     
     func configureCell()
     {
+        hideWord()
+    }
+    
+    func hideWord()
+    {
+        guard let range = sentence.range,let  missing = sentence.missingText else {return }
+  
+        let newRange = Range(range,in :sentence.text)
+        var text = sentence.text
+        text = text?.replacingOccurrences(of: missing, with: " ", options: .caseInsensitive, range: newRange)
         
+        var mutableString:NSMutableAttributedString = NSMutableAttributedString(string: text!)
+        let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
+        mutableString.addAttributes(underlineAttribute, range: range)
+
+        lblText.attributedText = mutableString
+       
     }
     
     
