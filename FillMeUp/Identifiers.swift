@@ -11,4 +11,13 @@ import UIKit
 
 struct CellIdentifier {
     static let QuestionCellId = "questioncell"
+    static let ResultsCellId = "ResultCell"
+}
+
+struct StoryboardIdentifer {
+    static let ResultsScreen = "ResultVC"
+}
+
+struct HeaderIdentifier {
+    static let ResultsHeader = "HeaderView"
 }

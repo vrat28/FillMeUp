@@ -11,18 +11,6 @@ import UIKit
 
 class Utility : NSObject
 {
-  class  func calculateScore(from sentences:[Sentence])-> Int
-    {
-        var score = 0
-        for sentence in sentences {
-            if let hidden = sentence.missingText, let answer = sentence.answer {
-                if hidden == answer {
-                    score = score  + 1
-                }
-            }
-        }
-        return score
-    }
     
   class func splitSentences(from paragraph:String,limit:Int)->[String]
     {
@@ -59,7 +47,7 @@ class Utility : NSObject
                 count = count + 1
             }
         }
-        
+        // In the end, Minimum mumber of sentences will be returned.
         return result
     }
     

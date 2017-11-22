@@ -45,17 +45,13 @@ class WordJumble : NSObject {
             // so choose the first tag available in the sentence.
             
             
-            if currentLevel == 0 {
-                
-                str = tagArr.first!
+            if !tagArr.contains(str) {
+                str = (tagArr.first)!
             }
             
             if let wordForTag = tagDic[str] {
                 
-               
-                
                 let range:NSRange = (aSentence.text as NSString).range(of: wordForTag)
-                
                 tokens.append(wordForTag)
                 aSentence.range = range
                 aSentence.missingText = wordForTag

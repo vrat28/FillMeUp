@@ -27,7 +27,7 @@ class LinguisticTagger : NSObject
             let token = input[range]
             
             //  Punctuation,  SentenceTerminator to be ignored
-            if !excludedTypes.contains(tag)
+            if excludedTypes.contains(tag) == false
             {
                  tags[tag] = token
             }

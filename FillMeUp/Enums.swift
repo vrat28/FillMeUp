@@ -11,8 +11,9 @@ import UIKit
 
 // Difficulty Type : 1-6
 enum DifficultyType:String {
-    case Determiner
+    
     case Preposition
+    case Determiner
     case Verb
     case Noun
     case Pronoun

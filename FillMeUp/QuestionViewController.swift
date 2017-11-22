@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ChameleonFramework
 
-class ViewController: UIViewController {
+class QuestionViewController: UIViewController {
 
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var btnReplay:UIButton!
@@ -31,9 +32,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.estimatedRowHeight = 64
         tableView.rowHeight = UITableViewAutomaticDimension
+        viewPickerContainer.translatesAutoresizingMaskIntoConstraints = false
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -53,6 +57,17 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setupNavBar()
+    {
+        navigationController?.navigationBar.barTintColor = FlatTeal()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "Fill Me Up"
+        
+        let rightBarButton = UIBarButtonItem(title: "Submit", style: .done, target:self, action: #selector(btnSubmitClicked))
+        navigationItem.rightBarButtonItem = rightBarButton
     }
     
     func configurePicker()
@@ -123,17 +138,49 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func btnReplayClicked(sender:AnyObject) {
+        testDummy()
+    }
     
     
     func btnSubmitClicked()
     {
-        let score =  Utility.calculateScore(from: arrSentences)
+       calculateScore()
+       pushResultsScreen()
         
-        if score == gameInfo.questionCount
-        {
+    }
+    
+    func calculateScore()
+    {
+        var score = 0
+        for sentence in arrSentences {
+            
+            if let answer = sentence.answer {
+                
+                if sentence.missingText == answer {
+                    
+                    score = score + 1;
+                    sentence.score = 1;
+                }
+                
+            }
+        }
+        
+        gameInfo.score = score
+        
+        // Check if all answers are correct, If Yes-> Increment Difficulty Level
+        if score == gameInfo.questionCount {
             gameInfo.increaseLevel()
         }
-        lblScore.text = "\(score)"
+    }
+    
+    func pushResultsScreen()
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier:StoryboardIdentifer.ResultsScreen) as! ResultsViewController
+        vc.arrSentences = arrSentences
+        vc.gameInfo = gameInfo
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK: - Picker functions
@@ -171,7 +218,8 @@ class ViewController: UIViewController {
         
 }
 
-extension ViewController:UITableViewDataSource {
+// MARK:- TableView Methods
+extension QuestionViewController:UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -194,33 +242,7 @@ extension ViewController:UITableViewDataSource {
     }
 }
 
-extension ViewController:UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-       
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 40))
-        let loginButton = UIButton(type: .custom)
-        loginButton.setTitle(StringConstants.kFooterButtonTitle, for:.normal)
-        loginButton.addTarget(self, action: #selector(btnSubmitClicked), for: .touchUpInside)
-        loginButton.setTitleColor(UIColor.white, for: .normal)
-        loginButton.backgroundColor = UIColor.blue
-        loginButton.frame = CGRect(x: 0,y: 0, width: 130, height: 30)
-        footerView.addSubview(loginButton)
-
-        return footerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 50
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-        
-    }
-}
-
-extension ViewController:UIPickerViewDataSource
+extension QuestionViewController:UIPickerViewDataSource
 {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -234,7 +256,7 @@ extension ViewController:UIPickerViewDataSource
         return arrHints[row]
     }
 }
-extension ViewController:UIPickerViewDelegate
+extension QuestionViewController:UIPickerViewDelegate
 {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -242,12 +264,13 @@ extension ViewController:UIPickerViewDelegate
         let answer = arrHints[row]
         sentence.answer = answer
         
-        Utility.reloadTableViewOnMainThread(tableView: self.tableView)
+        let indexPath = IndexPath(item: currentActiveCell!, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
     
 }
 
-extension ViewController:QuestionCellDelegate {
+extension QuestionViewController:QuestionCellDelegate {
     
     func cellTapped(at index: Int) {
         currentActiveCell = index
