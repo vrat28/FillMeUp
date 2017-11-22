@@ -11,20 +11,27 @@ import UIKit
 class LinguisticTagger : NSObject
 {
     
-   class  func getLexicalTagsFromString(with input : String) -> [String]
+    class  func getLexicalTagsFromString(with input : String) -> [String:String]
     {
+        let excludedTypes = ["SentenceTerminator", "Punctuation"]
+        
         let options = NSLinguisticTagger.Options.omitWhitespace.rawValue | NSLinguisticTagger.Options.joinNames.rawValue
         let tagger = NSLinguisticTagger(tagSchemes: NSLinguisticTagger.availableTagSchemes(forLanguage: "en"), options: Int(options))
         tagger.string = input
         
         let stringRange = NSRange(location: 0, length: input.utf16.count)
         
-        var tags = [String]()
+        var tags = [String:String]()
         tagger.enumerateTags(in: stringRange, scheme: NSLinguisticTagSchemeNameTypeOrLexicalClass, options: NSLinguisticTagger.Options(rawValue: options)) { tag, tokenRange, sentenceRange, stop in
             guard let range = Range(tokenRange, in: input) else { return }
             let token = input[range]
             
-            tags.append(tag)
+            //  Punctuation,  SentenceTerminator to be ignored
+            if !excludedTypes.contains(tag)
+            {
+                 tags[tag] = token
+            }
+           
             print("\(tag): \(token)")
         }
         

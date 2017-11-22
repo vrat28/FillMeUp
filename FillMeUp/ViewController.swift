@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var pickerView:UIPickerView!
     @IBOutlet weak var lblScore:UILabel!
     
+    var currentActiveCell:Int?
     var arrSentences:[Sentence] = []
     var arrHints:[String] = [" "]
     
@@ -43,11 +44,32 @@ class ViewController: UIViewController {
      //   callWebServiceToFetchText()
         testDummy()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pickerView.delegate = nil
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func configurePicker()
+    {
+        pickerView.delegate = self
+        pickerView.dataSource = self
+    }
 
+    func refreshUI()
+    {
+        // set Pickerview datasources as the array of hints
+        configurePicker()
+        
+        // Reload tableView on Dispatch Queue
+        Utility.reloadTableViewOnMainThread(tableView: self.tableView)
+        
+    }
     
     func callWebServiceToFetchText()
     {
@@ -86,10 +108,18 @@ class ViewController: UIViewController {
             return Sentence(with: string)
         })
         
-        WordJumble.prepareQuestions(sentences: self.arrSentences, with: gameInfo)
+      let response =  WordJumble.prepareQuestions(sentences: self.arrSentences, with: gameInfo)
         
-        // Reload tableView on Dispatch Queue
-        Utility.reloadTableViewOnMainThread(tableView: self.tableView)
+        if let hints = response.1 {
+         
+            self.arrHints = hints
+            refreshUI()
+        }
+        else
+        {
+            // Error parsing sentences
+        }
+
         
     }
     
@@ -157,6 +187,8 @@ extension ViewController:UITableViewDataSource {
         
         let sentence = arrSentences[indexPath.row]
         cell.sentence = sentence
+        cell.delegate = self
+        cell.index = indexPath.row
         cell.configureCell()
         return cell
     }
@@ -181,6 +213,11 @@ extension ViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 50
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+        
+    }
 }
 
 extension ViewController:UIPickerViewDataSource
@@ -200,7 +237,21 @@ extension ViewController:UIPickerViewDataSource
 extension ViewController:UIPickerViewDelegate
 {
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let sentence = arrSentences[currentActiveCell!]
+        let answer = arrHints[row]
+        sentence.answer = answer
+        
+        Utility.reloadTableViewOnMainThread(tableView: self.tableView)
+    }
     
+}
+
+extension ViewController:QuestionCellDelegate {
     
+    func cellTapped(at index: Int) {
+        currentActiveCell = index
+        showPicker()
+    }
 }
 

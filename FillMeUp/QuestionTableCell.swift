@@ -8,14 +8,22 @@
 
 import UIKit
 
+protocol QuestionCellDelegate {
+    
+    func cellTapped(at index:Int)
+}
+
 class QuestionTableCell: UITableViewCell {
 
     @IBOutlet weak var lblText:UILabel!
-    
     var sentence:Sentence!
+    var index:Int!
+    var delegate:QuestionCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        self.contentView.addGestureRecognizer(tapGesture)
         // Initialization code
     }
     
@@ -32,12 +40,17 @@ class QuestionTableCell: UITableViewCell {
         var text = sentence.text
         text = text?.replacingOccurrences(of: missing, with: " ", options: .caseInsensitive, range: newRange)
         
-        var mutableString:NSMutableAttributedString = NSMutableAttributedString(string: text!)
+        let mutableString:NSMutableAttributedString = NSMutableAttributedString(string: text!)
         let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
         mutableString.addAttributes(underlineAttribute, range: range)
 
         lblText.attributedText = mutableString
        
+    }
+    
+    func cellTapped()
+    {
+        delegate?.cellTapped(at:index)
     }
     
     

@@ -57,7 +57,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15E-yo-fLu">
-                                <rect key="frame" x="0.0" y="407" width="375" height="260"/>
+                                <rect key="frame" x="0.0" y="667" width="375" height="260"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRO-6b-TiF">
                                         <rect key="frame" x="0.0" y="44" width="375" height="216"/>
@@ -66,7 +66,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="tGv-jD-KdD"/>
-                                            <barButtonItem title="Done" id="zC0-lp-fBG"/>
+                                            <barButtonItem title="Done" id="zC0-lp-fBG">
+                                                <connections>
+                                                    <action selector="pickerDoneButtonClickedWithSender:" destination="QJe-Bf-Pkn" id="xv3-PN-dld"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </items>
                                     </toolbar>
                                 </subviews>
@@ -110,7 +114,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1eM-YF-bF5" firstAttribute="top" secondItem="15E-yo-fLu" secondAttribute="bottom" id="78z-Ep-ekK"/>
+                            <constraint firstItem="1eM-YF-bF5" firstAttribute="top" secondItem="15E-yo-fLu" secondAttribute="bottom" constant="-260" id="78z-Ep-ekK"/>
                             <constraint firstItem="9NK-fm-LtE" firstAttribute="leading" secondItem="QwS-9r-uEN" secondAttribute="leading" id="C9F-i6-fem"/>
                             <constraint firstItem="Liy-2V-rsy" firstAttribute="leading" secondItem="QwS-9r-uEN" secondAttribute="leading" id="GJ2-YR-Vqu"/>
                             <constraint firstItem="15E-yo-fLu" firstAttribute="leading" secondItem="QwS-9r-uEN" secondAttribute="leading" id="KH5-aL-FlR"/>
@@ -125,7 +129,9 @@
                     <connections>
                         <outlet property="btnReplay" destination="eEl-YV-hbw" id="iha-xs-8Xw"/>
                         <outlet property="lblScore" destination="RU4-XO-W0v" id="Xrt-2W-eNZ"/>
+                        <outlet property="pickerView" destination="eRO-6b-TiF" id="eM0-Cq-r2w"/>
                         <outlet property="tableView" destination="Liy-2V-rsy" id="pEP-Td-9bO"/>
+                        <outlet property="viewPickerContainer" destination="15E-yo-fLu" id="Cs4-eb-ec4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Oo-EF-JV8" userLabel="First Responder" sceneMemberID="firstResponder"/>

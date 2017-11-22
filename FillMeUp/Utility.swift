@@ -70,4 +70,39 @@ class Utility : NSObject
         }
     }
     
+  class   func getTagAccordingToLevel(level:Int)->String
+    {
+        switch level {
+            
+        case 1:
+            return "Preposition"
+            
+        case 2:
+            return "Determiner"
+            
+        case 3:
+            return "Verb"
+            
+        case 4:
+            return "Noun"
+            
+        case 5:
+            return "Pronoun"
+            
+        case 6:
+            return "Conjunction"
+            
+        default:
+            return "Preposition"
+        }
+        
+        
+    }
+    
+   class func findNextMatchingLevel(level:Int)->String {
+        
+        return getTagAccordingToLevel(level: level + 1)
+    }
+    
+    
 }

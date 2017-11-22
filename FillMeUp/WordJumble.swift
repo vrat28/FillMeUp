@@ -12,21 +12,54 @@ class WordJumble : NSObject {
     
     static func  prepareQuestions(sentences : [Sentence], with level : GameLevel)-> ([Sentence]?,[String]?)
     {
+        // This function will take array of sentences and prepare them for questions
+        
         var outputSentences = sentences
         var tokens = [String]()
         for aSentence in outputSentences {
             
             let string = aSentence.text
+            // get tags and words in form of Dic
             
-            let tags = LinguisticTagger.getLexicalTagsFromString(with: string!)
+            // This is save the last word for corresponding tag
+            let tagDic = LinguisticTagger.getLexicalTagsFromString(with: string!)
             
-            let range:NSRange = NSRange()
-            let token:String = " "
+            // convert all the present tags in an array
+            let tagArr = Array(tagDic.keys)
+
+            // save current level
             
-            tokens.append(token)
-            aSentence.range = range
-            aSentence.missingText = token
+            // We will need to find right level , in case Tag for that level is not available,
+            // For ex, for Player :level3 would correspond to Noun (So nouns will be hidden)
+            // but if the sentences does not contains any noun, then we need to find next better option
             
+            var currentLevel = level.difficultyMultiplier
+            var str = Utility.getTagAccordingToLevel(level: level.difficultyMultiplier)
+            
+            while tagArr.contains(str) == false && currentLevel > 0 {
+                str = Utility.findNextMatchingLevel(level: currentLevel)
+                currentLevel = currentLevel - 1
+            }
+           
+            // This meant we couldnt find any word suiting the player's level
+            // so choose the first tag available in the sentence.
+            
+            
+            if currentLevel == 0 {
+                
+                str = tagArr.first!
+            }
+            
+            if let wordForTag = tagDic[str] {
+                
+               
+                
+                let range:NSRange = (aSentence.text as NSString).range(of: wordForTag)
+                
+                tokens.append(wordForTag)
+                aSentence.range = range
+                aSentence.missingText = wordForTag
+            }
         }
         
         return (outputSentences,tokens)
