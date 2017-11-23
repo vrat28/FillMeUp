@@ -14,7 +14,7 @@ class WordJumble : NSObject {
     {
         // This function will take array of sentences and prepare them for questions
         
-        var outputSentences = sentences
+        let outputSentences = sentences
         var tokens = [String]()
         for aSentence in outputSentences {
             
@@ -34,8 +34,8 @@ class WordJumble : NSObject {
             // For ex, for Player :level3 would correspond to Noun (So nouns will be hidden)
             // but if the sentences does not contains any noun, then we need to find next better option
             
-            var currentLevel = level.difficultyMultiplier
-            var str = Utility.getTagAccordingToLevel(level: level.difficultyMultiplier)
+            var currentLevel = level.level
+            var str = Utility.getTagAccordingToLevel(level: level.level)
             
             while tagArr.contains(str) == false && currentLevel > 0 {
                 str = Utility.findNextMatchingLevel(level: currentLevel)

@@ -71,13 +71,22 @@ class GameLevel :NSObject {
     
     var level:Int = 1
     var questionCount:Int = 10
-    var difficultyMultiplier = 1
     var score:Int?
+    var cumulativeTotal:Int = 0
     
     
     func increaseLevel()
     {
         questionCount = questionCount + 1
-        difficultyMultiplier  = difficultyMultiplier + 1
+        level  = level + 1
     }
+}
+
+// Struct for resetting game difficulty
+struct GameDefaults {
+    
+  static  let initialLevel = 1
+  static  let maxLevel = 6
+  static let questionCount = 10
+  static let initialScore = 0
 }

@@ -11,6 +11,11 @@ import UIKit
 
 struct StringConstants {
     
+   static let kPopupTitle = "GAME OVER"
+   static let kPopupMessage = "Oops!! You havent answered all questions correctly. Do you want to see the results?"
+   static let kPopupOption1 = "Results"
+   static let kPopuoOption2 = "Dismiss"
+    
    static let kCorrectText = "Correct!"
    static let kWrongText = "Oops"
    static  let kFooterButtonTitle = "SUBMIT"

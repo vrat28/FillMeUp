@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import PopupDialog
 
 class Utility : NSObject
 {
@@ -39,17 +39,22 @@ class Utility : NSObject
         var count = result.count
         // If minimum count of sentences i not met , then append initial messages
         // by random, indexes
-        if count < Constant.kMaxSentences
+        if count < limit
         {
-           /*
-            while count < 10
+           
+            while count < limit
             {
                 let random = Int(arc4random_uniform(UInt32(count)))
                 let sentence = result[random]
                 result.append(sentence)
                 count = count + 1
             }
- */
+        }
+        
+        
+        // If sentences are greater than the required number -> Slice the array
+        if count > limit {
+            result = [String](result[0..<limit])
         }
         // In the end, Minimum mumber of sentences will be returned.
         return result
@@ -94,6 +99,29 @@ class Utility : NSObject
    class func findNextMatchingLevel(level:Int)->String {
         
         return getTagAccordingToLevel(level: level + 1)
+    }
+    
+    class func getPopupDialog()-> PopupDialog
+    {
+        
+            let popup = PopupDialog(title: StringConstants.kPopupTitle, message: StringConstants.kPopupMessage)
+            
+            let pv = PopupDialogDefaultView.appearance()
+            pv.titleFont    = UIFont(name: "HelveticaNeue-Light", size: 16)!
+            pv.titleColor   = UIColor.white
+            pv.messageFont  = UIFont(name: "HelveticaNeue", size: 14)!
+            pv.messageColor = UIColor(white: 0.8, alpha: 1)
+            
+            
+            let pcv = PopupDialogContainerView.appearance()
+            pcv.backgroundColor = UIColor(red:0.23, green:0.23, blue:0.27, alpha:1.00)
+            pcv.cornerRadius    = 2
+            pcv.shadowEnabled   = true
+            pcv.shadowColor     = UIColor.black
+        
+            popup.buttonAlignment = .horizontal
+            popup.transitionStyle = .bounceUp
+            return popup
     }
     
     

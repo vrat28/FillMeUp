@@ -10,6 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="ChalkboardSE.ttc">
+            <string>ChalkboardSE-Bold</string>
+            <string>ChalkboardSE-Regular</string>
+        </array>
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue-Bold</string>
             <string>HelveticaNeue-Medium</string>
@@ -105,7 +109,19 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ije-AB-Y8l">
                                         <rect key="frame" x="365" y="25.5" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7j-JS-dF9">
+                                        <rect key="frame" x="20" y="12" width="57" height="27"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="19"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu7-4F-gOb">
+                                        <rect key="frame" x="82" y="12" width="12" height="27"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -115,7 +131,11 @@
                                     <constraint firstAttribute="trailing" secondItem="Ije-AB-Y8l" secondAttribute="trailing" constant="10" id="1K3-Nc-OF5"/>
                                     <constraint firstItem="SV4-vE-wka" firstAttribute="centerX" secondItem="9NK-fm-LtE" secondAttribute="centerX" id="IWA-99-1Je"/>
                                     <constraint firstItem="SV4-vE-wka" firstAttribute="centerY" secondItem="9NK-fm-LtE" secondAttribute="centerY" id="J53-8q-FIO"/>
+                                    <constraint firstItem="yu7-4F-gOb" firstAttribute="leading" secondItem="h7j-JS-dF9" secondAttribute="trailing" constant="5" id="JPy-MP-db5"/>
                                     <constraint firstAttribute="height" constant="50" id="Pvl-Gn-AUh"/>
+                                    <constraint firstItem="yu7-4F-gOb" firstAttribute="centerY" secondItem="h7j-JS-dF9" secondAttribute="centerY" id="fIv-um-eC8"/>
+                                    <constraint firstItem="h7j-JS-dF9" firstAttribute="centerY" secondItem="9NK-fm-LtE" secondAttribute="centerY" id="kBN-eQ-ILA"/>
+                                    <constraint firstItem="h7j-JS-dF9" firstAttribute="leading" secondItem="9NK-fm-LtE" secondAttribute="leading" constant="20" id="rhq-5O-xHY"/>
                                     <constraint firstItem="Ije-AB-Y8l" firstAttribute="centerY" secondItem="9NK-fm-LtE" secondAttribute="centerY" id="zS8-OC-k3q"/>
                                 </constraints>
                             </view>
@@ -136,6 +156,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="2Bx-di-oJX"/>
                     <connections>
+                        <outlet property="lblCurrentLevel" destination="yu7-4F-gOb" id="2A3-ru-SQg"/>
                         <outlet property="lblStatus" destination="Ije-AB-Y8l" id="fnk-3L-w2h"/>
                         <outlet property="pickerView" destination="eRO-6b-TiF" id="eM0-Cq-r2w"/>
                         <outlet property="tableView" destination="Liy-2V-rsy" id="pEP-Td-9bO"/>

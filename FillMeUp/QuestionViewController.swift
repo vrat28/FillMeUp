@@ -8,6 +8,7 @@
 
 import UIKit
 import ChameleonFramework
+import PopupDialog
 
 class QuestionViewController: UIViewController {
     
@@ -16,10 +17,14 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var viewPickerContainer:UIView!
     @IBOutlet weak var pickerView:UIPickerView!
     @IBOutlet weak var lblStatus:UILabel!
+    @IBOutlet weak var lblCurrentLevel:UILabel!
     
     var currentActiveCell:Int?
     var arrSentences:[Sentence] = []
     var arrHints:[String] = [" "]
+    
+
+    
     
     // This gameInfo will manage user game difficults. as the user successfully answers all the answers , increase the level/ number of questions per level
     
@@ -31,6 +36,7 @@ class QuestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
+        setupColors()
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.estimatedRowHeight = 64
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -55,6 +61,11 @@ class QuestionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupColors()
+    {
+        self.pickerView.backgroundColor = FlatTeal()
+        lblCurrentLevel.textColor = FlatSkyBlue()
+    }
     
     func setupNavBar()
     {
@@ -88,6 +99,8 @@ class QuestionViewController: UIViewController {
         
     }
     
+    //MARK:- Activity Indicator
+    
    func startActivityIndicator()
     {
         DispatchQueue.main.async {
@@ -105,6 +118,8 @@ class QuestionViewController: UIViewController {
         }
         
     }
+    
+    //MARK:- Network request
     
     func callWebServiceToFetchText()
     {
@@ -153,49 +168,41 @@ class QuestionViewController: UIViewController {
     }
     
     @IBAction func btnReplayClicked(sender:AnyObject) {
+        setDefaultLevel()
         callWebServiceToFetchText()
+        updateLevel()
     }
     
     
     func btnSubmitClicked()
     {
-        calculateScore()
         changeGameStatus(with: false)
-        pushResultsScreen()
-        
-    }
-    
-    func calculateScore()
-    {
-        var score = 0
-        for sentence in arrSentences {
-            
-            if let answer = sentence.answer {
-                
-                if sentence.missingText == answer {
-                    
-                    score = score + 1;
-                    sentence.score = 1;
-                }
-                
-            }
-        }
-        
-        gameInfo.score = score
+        calculateScore()
         
         // Check if all answers are correct, If Yes-> Increment Difficulty Level
-        if score == gameInfo.questionCount {
+        if gameInfo.score == gameInfo.questionCount {
             gameInfo.increaseLevel()
+            updateLevel()
+            callWebServiceToFetchText()
+        }
+        else {
+            showDialog()
         }
     }
     
-    func pushResultsScreen()
+    //MARK:- Game Logic
+    
+    func setDefaultLevel()
     {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier:StoryboardIdentifer.ResultsScreen) as! ResultsViewController
-        vc.arrSentences = arrSentences
-        vc.gameInfo = gameInfo
-        self.navigationController?.pushViewController(vc, animated: true)
+        gameInfo.level = GameDefaults.initialLevel
+        gameInfo.questionCount = GameDefaults.questionCount
+        gameInfo.score = GameDefaults.initialScore
+        gameInfo.cumulativeTotal = GameDefaults.initialScore
+    }
+    
+    func updateLevel()
+    {
+        lblCurrentLevel.text = "\(gameInfo.level)"
     }
     
     func changeGameStatus(with gameStarted:Bool)
@@ -211,6 +218,53 @@ class QuestionViewController: UIViewController {
             lblStatus.textColor = FlatRed()
         }
     }
+    
+    func calculateScore()
+    {
+        var score = 0
+        for sentence in arrSentences {
+            
+            if let answer = sentence.answer {
+                
+                if sentence.missingText == answer {
+                    
+                    score = score + 1;
+                    sentence.score = 1;
+                    
+                }
+                
+            }
+        }
+        
+        gameInfo.score = score
+        gameInfo.cumulativeTotal = score + gameInfo.cumulativeTotal
+    }
+    
+    func pushResultsScreen()
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier:StoryboardIdentifer.ResultsScreen) as! ResultsViewController
+        vc.arrSentences = arrSentences
+        vc.gameInfo = gameInfo
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showDialog()
+    {
+        let popup = Utility.getPopupDialog()
+        let confirmBtn = DefaultButton(title: StringConstants.kPopupOption1, height: 60) {
+            self.pushResultsScreen()
+        }
+        let cancelBtn = CancelButton(title: StringConstants.kPopuoOption2, height: 60, dismissOnTap: true, action:nil)
+        
+        popup.addButtons([confirmBtn,cancelBtn])
+       present(popup, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    
     
     //MARK: - Picker functions
     
@@ -279,10 +333,11 @@ extension QuestionViewController:UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return arrHints.count
     }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
-        return arrHints[row]
+        let string = arrHints[row]
+        return NSAttributedString(string: string, attributes: [NSForegroundColorAttributeName:UIColor.white])
     }
 }
 extension QuestionViewController:UIPickerViewDelegate

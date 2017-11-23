@@ -50,9 +50,7 @@ class ResultsViewController: UIViewController,UITableViewDataSource, UITableView
     
     func setScore()
     {
-        if let score = gameInfo.score {
-            headerView.lblScore.text = "\(score)"
-        }
+            headerView.lblScore.text = "\(totalScore)"
     }
     
     // MARK:- Table View Methods
