@@ -10,10 +10,10 @@ import UIKit
 import ChameleonFramework
 
 class QuestionViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var btnReplay:UIButton!
-   
+    
     
     @IBOutlet weak var viewPickerContainer:UIView!
     @IBOutlet weak var pickerView:UIPickerView!
@@ -40,13 +40,13 @@ class QuestionViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         hidePickerWithoutAnimation()
-     //   callWebServiceToFetchText()
-        testDummy()
+        callWebServiceToFetchText()
+        //testDummy()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -58,6 +58,7 @@ class QuestionViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     func setupNavBar()
     {
@@ -72,81 +73,92 @@ class QuestionViewController: UIViewController {
     
     func configurePicker()
     {
-        pickerView.delegate = self
-        pickerView.dataSource = self
+        DispatchQueue.main.async {
+            self.pickerView.delegate = self
+            self.pickerView.dataSource = self
+        }
+       
     }
-
+    
     func refreshUI()
     {
         // set Pickerview datasources as the array of hints
         configurePicker()
+        
+        self.stopActivityIndicator()
         
         // Reload tableView on Dispatch Queue
         Utility.reloadTableViewOnMainThread(tableView: self.tableView)
         
     }
     
+   func startActivityIndicator()
+    {
+        DispatchQueue.main.async {
+            let activityIndicator = ActivityIndicator.shared
+            activityIndicator.startLoader(on: self.view)
+        }
+        
+    }
+    
+   func  stopActivityIndicator()
+    {
+        DispatchQueue.main.async {
+            let activityIndicator = ActivityIndicator.shared
+            activityIndicator.stopLoader()
+        }
+        
+    }
+    
     func callWebServiceToFetchText()
     {
+        
+        startActivityIndicator()
         let apiClient = APIClient()
-        apiClient.request(urlString: URLConstants.kBaseURL, parameters: nil) { (json, error, status) in
-            // Check if data recieved is correct
+        apiClient.get(urlString: URLConstants.kBaseURL) { (json, error, status) in
             if status == true {
-                // Check for string
-                if let jsonStr = json.string {
+                if let jsonStr = json["query"]["pages"][URLConstants.pageID]["extract"].string {
                     // Convert string -> [String]/ [Sentences]
-                     let arrStrings = Utility.splitSentences(from: jsonStr, limit: self.gameInfo.questionCount)
-                    
+                    let arrStrings = Utility.splitSentences(from: jsonStr, limit: self.gameInfo.questionCount)
+                    // Convert Array of String array of Models
                     self.arrSentences = arrStrings.map({ (string) -> Sentence in
                         return Sentence(with: string)
                     })
                     
-                    // Reload tableView on Dispatch Queue
-                    Utility.reloadTableViewOnMainThread(tableView: self.tableView)
-
+                    // Prepare sentences by grouping tags based on lexical analysis of sentence
+                    let response =  WordJumble.prepareQuestions(sentences: self.arrSentences, with: self.gameInfo)
+                    
+                    // This will return Tuple of Manipulated sentences( a word would be removed from each text), and array of removed words, which we will use as Hint options
+                    
+                    if let hints = response.1 {
+                       // self.arrSentences = processedSentences
+                        self.arrHints = hints
+                        self.refreshUI()
+                    }
+                    else
+                    {
+                        // Error parsing sentences
+                    }
                 }
-            }
-            else // Show Error
-            {
                 
             }
+            
+            else
+            {
+                self.stopActivityIndicator()
+            }
         }
-        
-    }
-    
-    func testDummy()
-    {
-        let text = StringConstants.testString
-          let arrStrings = Utility.splitSentences(from: text, limit: self.gameInfo.questionCount)
-        
-      self.arrSentences =  arrStrings.map({ (string) -> Sentence in
-            return Sentence(with: string)
-        })
-        
-      let response =  WordJumble.prepareQuestions(sentences: self.arrSentences, with: gameInfo)
-        
-        if let hints = response.1 {
-         
-            self.arrHints = hints
-            refreshUI()
-        }
-        else
-        {
-            // Error parsing sentences
-        }
-
-        
     }
     
     @IBAction func btnReplayClicked(sender:AnyObject) {
-        testDummy()
+        callWebServiceToFetchText()
     }
     
     
     func btnSubmitClicked()
     {
-       calculateScore()
-       pushResultsScreen()
+        calculateScore()
+        pushResultsScreen()
         
     }
     
@@ -185,7 +197,7 @@ class QuestionViewController: UIViewController {
     
     //MARK: - Picker functions
     
-  @IBAction func pickerDoneButtonClicked(sender:UIBarButtonItem)
+    @IBAction func pickerDoneButtonClicked(sender:UIBarButtonItem)
     {
         hidePicker()
         
@@ -215,7 +227,7 @@ class QuestionViewController: UIViewController {
         self.viewPickerContainer.frame = CGRect(x: 0, y: self.view.frame.size.height, width: self.viewPickerContainer.frame.size.width, height: self.viewPickerContainer.frame.size.height)
     }
     
-        
+    
 }
 
 // MARK:- TableView Methods

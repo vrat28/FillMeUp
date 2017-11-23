@@ -37,8 +37,11 @@ class Utility : NSObject
         }
 
         var count = result.count
+        // If minimum count of sentences i not met , then append initial messages
+        // by random, indexes
         if count < Constant.kMaxSentences
         {
+           /*
             while count < 10
             {
                 let random = Int(arc4random_uniform(UInt32(count)))
@@ -46,6 +49,7 @@ class Utility : NSObject
                 result.append(sentence)
                 count = count + 1
             }
+ */
         }
         // In the end, Minimum mumber of sentences will be returned.
         return result

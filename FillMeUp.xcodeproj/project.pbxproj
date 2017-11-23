@@ -28,6 +28,7 @@
 		3753006B1FC58B6D00EB0D6E /* LinguisticTagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753006A1FC58B6D00EB0D6E /* LinguisticTagger.swift */; };
 		3753006D1FC5921600EB0D6E /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753006C1FC5921600EB0D6E /* Enums.swift */; };
 		3753006F1FC595EB00EB0D6E /* WordJumble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753006E1FC595EB00EB0D6E /* WordJumble.swift */; };
+		37C59AFE1FC6CF1E0094F9D0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C59AFD1FC6CF1E0094F9D0 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		3753006A1FC58B6D00EB0D6E /* LinguisticTagger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinguisticTagger.swift; sourceTree = "<group>"; };
 		3753006C1FC5921600EB0D6E /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		3753006E1FC595EB00EB0D6E /* WordJumble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordJumble.swift; sourceTree = "<group>"; };
+		37C59AFD1FC6CF1E0094F9D0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		6BA4310D622485EED56C8874 /* Pods-FillMeUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillMeUp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FillMeUp/Pods-FillMeUp.release.xcconfig"; sourceTree = "<group>"; };
 		B7042E9DD0A0A6A7848AED77 /* Pods-FillMeUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillMeUp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FillMeUp/Pods-FillMeUp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +80,7 @@
 				374035811FC1B57B00232D11 /* Utility.swift */,
 				3753006A1FC58B6D00EB0D6E /* LinguisticTagger.swift */,
 				3753006E1FC595EB00EB0D6E /* WordJumble.swift */,
+				37C59AFD1FC6CF1E0094F9D0 /* ActivityIndicator.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				374035701FC1B06600232D11 /* QuestionViewController.swift in Sources */,
 				3740356E1FC1B06600232D11 /* AppDelegate.swift in Sources */,
 				372B4F761FC5BCAD004C94F1 /* Extension.swift in Sources */,
+				37C59AFE1FC6CF1E0094F9D0 /* ActivityIndicator.swift in Sources */,
 				374035801FC1B55200232D11 /* APIClient.swift in Sources */,
 				372B4F7F1FC5FFC3004C94F1 /* ResultsHeaderView.swift in Sources */,
 				372B4F7D1FC5FC90004C94F1 /* AppTheme.swift in Sources */,

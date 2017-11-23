@@ -29,17 +29,11 @@ class QuestionTableCell: UITableViewCell {
     
     func configureCell()
     {
-        hideWord()
-    }
-    
-    func hideWord()
-    {
         guard let range = sentence.range,let  missing = sentence.missingText else {return }
-  
-         if let displaystr = sentence.displayString {
+        
+        if let displaystr = sentence.displayString {
             setAttributedText(input: displaystr, range: range)
         }
-       
     }
     
     func setAttributedText(input:String, range:NSRange)
