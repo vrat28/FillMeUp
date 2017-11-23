@@ -78,6 +78,7 @@
                                         <items>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="tGv-jD-KdD"/>
                                             <barButtonItem title="Done" id="zC0-lp-fBG">
+                                                <color key="tintColor" red="0.076513238251209259" green="0.41067492961883545" blue="0.41359227895736694" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="pickerDoneButtonClickedWithSender:" destination="QJe-Bf-Pkn" id="xv3-PN-dld"/>
                                                 </connections>
