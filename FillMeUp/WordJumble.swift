@@ -22,8 +22,9 @@ class WordJumble : NSObject {
             // get tags and words in form of Dic
             
             // This is save the last word for corresponding tag
-            let tagDic = LinguisticTagger.getLexicalTagsFromString(with: string!)
+            let response = LinguisticTagger.getLexicalTagsFromString(with: string!)
             
+            let tagDic = response.0
             // convert all the present tags in an array
             let tagArr = Array(tagDic.keys)
 
@@ -49,9 +50,11 @@ class WordJumble : NSObject {
                 str = (tagArr.first)!
             }
             
-            if let wordForTag = tagDic[str] {
-                
-                let range:NSRange = (aSentence.text as NSString).range(of: wordForTag)
+            if let wordForTag = tagDic[str]  {
+                // This Dic stores the range of the text hidden, This need to be saved as there might be multiple occurences of that word in the string, so we need to save corresponing range only
+                let tagRangeDic = response.1
+               // let range:NSRange = (aSentence.text as NSString).range(of: wordForTag)
+                let range = tagRangeDic[wordForTag]
                 tokens.append(wordForTag)
                 aSentence.range = range
                 aSentence.missingText = wordForTag

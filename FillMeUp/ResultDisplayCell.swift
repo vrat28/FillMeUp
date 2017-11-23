@@ -50,8 +50,7 @@ class ResultDisplayCell: UITableViewCell {
         }
         
     }
-    
-    
+
     
     func setAttributedString(with sentence:Sentence)-> NSMutableAttributedString
     {
@@ -59,7 +58,6 @@ class ResultDisplayCell: UITableViewCell {
         let attribute = [NSForegroundColorAttributeName: UIColor.white]
         
         mutableString.addAttributes(attribute, range: sentence.range!)
-        
         return mutableString
     }
 

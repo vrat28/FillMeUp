@@ -29,19 +29,26 @@ class QuestionTableCell: UITableViewCell {
     
     func configureCell()
     {
-        guard let range = sentence.range,let  missing = sentence.missingText else {return }
+        guard let range = sentence.range,let  _ = sentence.missingText else {return }
         
         if let displaystr = sentence.displayString {
-            setAttributedText(input: displaystr, range: range)
+            
+            if let _ = sentence.answer {
+                setAttributedText(input: displaystr, range: range)
+            }
+            else {
+              let xRange = NSMakeRange(range.location, 1)
+            setAttributedText(input: displaystr, range: xRange)
+            }
         }
     }
     
     func setAttributedText(input:String, range:NSRange)
     {
         let mutableString:NSMutableAttributedString = NSMutableAttributedString(string: input)
-        let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
+        let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue,
+                                  NSForegroundColorAttributeName : UIColor.blue] as [String : Any]
         mutableString.addAttributes(underlineAttribute, range: range)
-        
         lblText.attributedText = mutableString
     }
     
