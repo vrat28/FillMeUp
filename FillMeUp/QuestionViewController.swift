@@ -13,11 +13,9 @@ class QuestionViewController: UIViewController {
     
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var btnReplay:UIButton!
-    
-    
     @IBOutlet weak var viewPickerContainer:UIView!
     @IBOutlet weak var pickerView:UIPickerView!
-    @IBOutlet weak var lblScore:UILabel!
+    @IBOutlet weak var lblStatus:UILabel!
     
     var currentActiveCell:Int?
     var arrSentences:[Sentence] = []
@@ -37,7 +35,7 @@ class QuestionViewController: UIViewController {
         tableView.estimatedRowHeight = 64
         tableView.rowHeight = UITableViewAutomaticDimension
         viewPickerContainer.translatesAutoresizingMaskIntoConstraints = false
-        
+        callWebServiceToFetchText()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -45,8 +43,6 @@ class QuestionViewController: UIViewController {
         super.viewWillAppear(animated)
         
         hidePickerWithoutAnimation()
-        callWebServiceToFetchText()
-        //testDummy()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -118,6 +114,12 @@ class QuestionViewController: UIViewController {
         apiClient.get(urlString: URLConstants.kBaseURL) { (json, error, status) in
             if status == true {
                 if let jsonStr = json["query"]["pages"][URLConstants.pageID]["extract"].string {
+                    // If response is correct-> Update Game state
+                    
+                    DispatchQueue.main.async {
+                        self.changeGameStatus(with: true)
+                    }
+                    
                     // Convert string -> [String]/ [Sentences]
                     let arrStrings = Utility.splitSentences(from: jsonStr, limit: self.gameInfo.questionCount)
                     // Convert Array of String array of Models
@@ -158,6 +160,7 @@ class QuestionViewController: UIViewController {
     func btnSubmitClicked()
     {
         calculateScore()
+        changeGameStatus(with: false)
         pushResultsScreen()
         
     }
@@ -193,6 +196,20 @@ class QuestionViewController: UIViewController {
         vc.arrSentences = arrSentences
         vc.gameInfo = gameInfo
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func changeGameStatus(with gameStarted:Bool)
+    {
+        if gameStarted {
+            
+            lblStatus.text = "Running"
+            lblStatus.textColor = FlatGreen()
+        }
+        else
+        {
+            lblStatus.text = "Stopped"
+            lblStatus.textColor = FlatRed()
+        }
     }
     
     //MARK: - Picker functions
