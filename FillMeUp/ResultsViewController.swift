@@ -50,7 +50,7 @@ class ResultsViewController: UIViewController,UITableViewDataSource, UITableView
     
     func setScore()
     {
-            headerView.lblScore.text = "\(totalScore)"
+            headerView.lblScore.text = "\(gameInfo.cumulativeTotal)"
     }
     
     // MARK:- Table View Methods
