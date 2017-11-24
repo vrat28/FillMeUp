@@ -70,6 +70,9 @@ class ResultDisplayCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         contentView.backgroundColor = nil
+        lblCorrect.text = ""
+        lblSentence.text = ""
+        lblExplanation.text = ""
     }
 
 }
