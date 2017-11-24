@@ -11,6 +11,12 @@ Getting Boored? FillMeUp comes to the rescue. FillMeUp is a word game, which che
 7. On Choosing "Result option", a result screen will show the summary of your current level, and also the correct answers.
 8. Enjoy :)
 
+## Screenshots
+![alt text](https://user-images.githubusercontent.com/22045797/33210715-531b4564-d141-11e7-810c-9ac075e6132b.png)
+![alt text](https://user-images.githubusercontent.com/22045797/33210688-37c53c52-d141-11e7-8be6-0870d0a5cae4.png)
+![alt text](https://user-images.githubusercontent.com/22045797/33210684-339c4c06-d141-11e7-9862-952210ae9ee9.png)
+![alt text](https://user-images.githubusercontent.com/22045797/33210703-4763d704-d141-11e7-8ecf-dcb70bf057a2.png)
+
 ## Game Logic
 1. The game difficulty is managed by choosing the word or tag for tokens. More difficult the  word removed, more difficult would be to guess.
 2. So a sentence like "An apple is Sweet" would be tokenized on the lexical analysis of the sentence which would be [Determiner(An), Noun(Apple), is(Verb), Sweet(Adjectice)]. ,]
