@@ -1,9 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="ChalkboardSE.ttc">
+            <string>ChalkboardSE-Bold</string>
+            <string>ChalkboardSE-Light</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -16,12 +28,63 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fill" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8j0-st-f9S">
+                                <rect key="frame" x="76" y="547.5" width="43" height="42.5"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1Z-6g-g1K">
+                                <rect key="frame" x="139" y="540" width="106" height="57"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Light" family="Chalkboard SE" pointSize="40"/>
+                                <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvd-tK-Hnb">
+                                <rect key="frame" x="265" y="547.5" width="37" height="42.5"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTs-ea-cmr">
+                                <rect key="frame" x="140.5" y="607" width="94" height="20"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="czL-tu-506"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="b1z-2J-ETu">
+                                <rect key="frame" x="75.5" y="181" width="225" height="225"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="b1z-2J-ETu" secondAttribute="height" multiplier="1:1" id="5pn-CA-zNZ"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Hvd-tK-Hnb" firstAttribute="centerY" secondItem="h1Z-6g-g1K" secondAttribute="centerY" id="3KN-ce-Uvv"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="cTs-ea-cmr" secondAttribute="bottom" constant="40" id="5SI-7c-1cg"/>
+                            <constraint firstItem="cTs-ea-cmr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="MS8-yV-bzW"/>
+                            <constraint firstItem="cTs-ea-cmr" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.25" id="Q6n-fM-ftT"/>
+                            <constraint firstItem="cTs-ea-cmr" firstAttribute="top" secondItem="h1Z-6g-g1K" secondAttribute="bottom" constant="10" id="Sa0-2g-QGs"/>
+                            <constraint firstItem="b1z-2J-ETu" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.6" id="TcM-G1-XRW"/>
+                            <constraint firstItem="8j0-st-f9S" firstAttribute="centerY" secondItem="h1Z-6g-g1K" secondAttribute="centerY" id="g2e-de-nXc"/>
+                            <constraint firstItem="cTs-ea-cmr" firstAttribute="leading" secondItem="8j0-st-f9S" secondAttribute="trailing" constant="21.5" id="g8j-r8-MOO"/>
+                            <constraint firstItem="h1Z-6g-g1K" firstAttribute="leading" secondItem="8j0-st-f9S" secondAttribute="trailing" constant="20" id="hMr-xr-GyA"/>
+                            <constraint firstItem="b1z-2J-ETu" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-40" id="i1Z-i5-334"/>
+                            <constraint firstItem="b1z-2J-ETu" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="t52-O0-0iS"/>
+                            <constraint firstItem="Hvd-tK-Hnb" firstAttribute="leading" secondItem="cTs-ea-cmr" secondAttribute="trailing" constant="30.5" id="vM9-Mf-TGx"/>
+                            <constraint firstItem="Hvd-tK-Hnb" firstAttribute="leading" secondItem="h1Z-6g-g1K" secondAttribute="trailing" constant="20" id="vw2-ci-aHC"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon" width="100" height="100"/>
+    </resources>
 </document>

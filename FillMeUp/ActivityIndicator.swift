@@ -25,7 +25,7 @@ class ActivityIndicator: NSObject {
                 
                 indicatorView  = NVActivityIndicatorView(frame: CGRect(x: (width - AppTheme.kIndicatorWidth)/2
                     , y: (height - AppTheme.kIndicatorHeight)/2, width:AppTheme.kIndicatorWidth , height: AppTheme.kIndicatorHeight))
-                indicatorView?.type = NVActivityIndicatorType.squareSpin
+                indicatorView?.type = NVActivityIndicatorType.ballSpinFadeLoader
                 indicatorView?.color = AppTheme.kActivityIndColor
                 
                 indicatorView?.startAnimating()
