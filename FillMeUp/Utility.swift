@@ -101,7 +101,7 @@ class Utility : NSObject
         return getTagAccordingToLevel(level: level + 1)
     }
     
-    class func getPopupDialog()-> PopupDialog
+    class func getPopupDialog(title:String,and message:String)-> PopupDialog
     {
         
             let popup = PopupDialog(title: StringConstants.kPopupTitle, message: StringConstants.kPopupMessage)

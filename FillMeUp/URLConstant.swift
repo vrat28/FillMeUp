@@ -14,7 +14,7 @@ struct Constant {
 }
 
 struct URLConstants {
-    static let kBaseURL = "http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=Yahoo|Google&redirects="
+    static let kBaseURL = "http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&exintro&titles=%@&redirects="
     static let pageID = "1092923"
     
 }

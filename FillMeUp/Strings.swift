@@ -10,7 +10,10 @@
 import UIKit
 
 struct StringConstants {
-    
+        
+   static let kPopupMessageGameOver = "You have already submitted. Please start a new game to play."
+   
+   static let kpopupDismiss = "Dismiss"
    static let kPopupTitle = "GAME OVER"
    static let kPopupMessage = "Oops!! You havent answered all questions correctly. Do you want to see the results?"
    static let kPopupOption1 = "Results"

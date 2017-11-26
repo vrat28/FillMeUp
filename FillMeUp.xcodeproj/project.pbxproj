@@ -28,6 +28,7 @@
 		3753006B1FC58B6D00EB0D6E /* LinguisticTagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753006A1FC58B6D00EB0D6E /* LinguisticTagger.swift */; };
 		3753006D1FC5921600EB0D6E /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753006C1FC5921600EB0D6E /* Enums.swift */; };
 		3753006F1FC595EB00EB0D6E /* WordJumble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3753006E1FC595EB00EB0D6E /* WordJumble.swift */; };
+		37BDB46E1FCB3476007C7279 /* ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BDB46D1FCB3476007C7279 /* ContentExtractor.swift */; };
 		37C59AFE1FC6CF1E0094F9D0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C59AFD1FC6CF1E0094F9D0 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		3753006A1FC58B6D00EB0D6E /* LinguisticTagger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinguisticTagger.swift; sourceTree = "<group>"; };
 		3753006C1FC5921600EB0D6E /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		3753006E1FC595EB00EB0D6E /* WordJumble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordJumble.swift; sourceTree = "<group>"; };
+		37BDB46D1FCB3476007C7279 /* ContentExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; };
 		37C59AFD1FC6CF1E0094F9D0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		6BA4310D622485EED56C8874 /* Pods-FillMeUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillMeUp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FillMeUp/Pods-FillMeUp.release.xcconfig"; sourceTree = "<group>"; };
 		B7042E9DD0A0A6A7848AED77 /* Pods-FillMeUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FillMeUp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FillMeUp/Pods-FillMeUp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				3753006A1FC58B6D00EB0D6E /* LinguisticTagger.swift */,
 				3753006E1FC595EB00EB0D6E /* WordJumble.swift */,
 				37C59AFD1FC6CF1E0094F9D0 /* ActivityIndicator.swift */,
+				37BDB46D1FCB3476007C7279 /* ContentExtractor.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				374035861FC1B5AB00232D11 /* Model.swift in Sources */,
 				375300691FC4E54B00EB0D6E /* Strings.swift in Sources */,
 				3753006B1FC58B6D00EB0D6E /* LinguisticTagger.swift in Sources */,
+				37BDB46E1FCB3476007C7279 /* ContentExtractor.swift in Sources */,
 				372B4F791FC5F94C004C94F1 /* ResultsViewController.swift in Sources */,
 				374035821FC1B57B00232D11 /* Utility.swift in Sources */,
 				3740358D1FC1B5FA00232D11 /* Identifiers.swift in Sources */,

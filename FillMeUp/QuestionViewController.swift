@@ -23,8 +23,9 @@ class QuestionViewController: UIViewController {
     var arrSentences:[Sentence] = []
     var arrHints:[String] = [" "]
     
-
     
+    var isRowBlocked:Bool = false
+    var isGameRunning:Bool = false
     
     // This gameInfo will manage user game difficults. as the user successfully answers all the answers , increase the level/ number of questions per level
     
@@ -47,7 +48,7 @@ class QuestionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        setDefaultLevel()
         hidePickerWithoutAnimation()
     }
     
@@ -126,13 +127,16 @@ class QuestionViewController: UIViewController {
         
         startActivityIndicator()
         let apiClient = APIClient()
-        apiClient.get(urlString: URLConstants.kBaseURL) { (json, error, status) in
+        let url = ContentQuery.getRandomContentUrlString()
+        apiClient.get(urlString:url) { (json, error, status) in
             if status == true {
-                if let jsonStr = json["query"]["pages"][URLConstants.pageID]["extract"].string {
+                
+                if let jsonStr = ContentExtractor.getContentFrom(json: json){
                     // If response is correct-> Update Game state
                     
+                    self.isGameRunning = true
                     DispatchQueue.main.async {
-                        self.changeGameStatus(with: true)
+                        self.changeGameStatus(with:true)
                     }
                     
                     // Convert string -> [String]/ [Sentences]
@@ -149,7 +153,7 @@ class QuestionViewController: UIViewController {
                     
                     if let hints = response.1 {
                        // self.arrSentences = processedSentences
-                        self.arrHints = hints
+                        self.arrHints = hints.shuffled()
                         self.refreshUI()
                     }
                     else
@@ -168,6 +172,7 @@ class QuestionViewController: UIViewController {
     }
     
     @IBAction func btnReplayClicked(sender:AnyObject) {
+        self.isGameRunning = false
         setDefaultLevel()
         callWebServiceToFetchText()
         updateLevel()
@@ -194,6 +199,7 @@ class QuestionViewController: UIViewController {
     
     func setDefaultLevel()
     {
+        isGameRunning = false
         gameInfo.level = GameDefaults.initialLevel
         gameInfo.questionCount = GameDefaults.questionCount
         gameInfo.score = GameDefaults.initialScore
@@ -232,7 +238,6 @@ class QuestionViewController: UIViewController {
                     sentence.score = 1;
                     
                 }
-                
             }
         }
         
@@ -251,27 +256,36 @@ class QuestionViewController: UIViewController {
     
     func showDialog()
     {
-        let popup = Utility.getPopupDialog()
-        let confirmBtn = DefaultButton(title: StringConstants.kPopupOption1, height: 60) {
+        let popup = Utility.getPopupDialog(title: StringConstants.kPopupTitle, and: StringConstants.kPopupMessage)
+        let confirmBtn = DefaultButton(title: StringConstants.kPopupOption1, height: 50) {
             self.pushResultsScreen()
         }
-        let cancelBtn = CancelButton(title: StringConstants.kPopuoOption2, height: 60, dismissOnTap: true, action:nil)
+        let cancelBtn = CancelButton(title: StringConstants.kPopuoOption2, height: 50, dismissOnTap: true, action:nil)
         
         popup.addButtons([confirmBtn,cancelBtn])
        present(popup, animated: true, completion: nil)
         
-        
     }
     
-    
-    
+    func showDialogForNewGame()
+    {
+        let popup = Utility.getPopupDialog(title: StringConstants.kPopupTitle, and: StringConstants.kPopupMessageGameOver)
+        
+        popup.title = StringConstants.kPopupMessageGameOver
+        let dismissBtn = CancelButton(title: StringConstants.kpopupDismiss, height: 40, dismissOnTap: true, action:nil)
+        popup.addButton(dismissBtn)
+        present(popup, animated: true, completion: nil)
+        
+    }
     
     //MARK: - Picker functions
     
     @IBAction func pickerDoneButtonClicked(sender:UIBarButtonItem)
     {
-        hidePicker()
         
+        let selectedOption = pickerView.selectedRow(inComponent: 0)
+        pickerView(self.pickerView, didSelectRow: selectedOption, inComponent: 0)
+
     }
     
     func showPicker()
@@ -287,6 +301,12 @@ class QuestionViewController: UIViewController {
     
     func hidePicker()
     {
+        if isRowBlocked {
+            isRowBlocked = false
+            shiftTableViewDown()
+        }
+        
+        
         UIView.animate(withDuration: 0.2) {
             self.viewPickerContainer.frame = CGRect(x: 0, y: self.view.frame.size.height, width: self.viewPickerContainer.frame.size.width, height: self.viewPickerContainer.frame.size.height)
         }
@@ -298,7 +318,29 @@ class QuestionViewController: UIViewController {
         self.viewPickerContainer.frame = CGRect(x: 0, y: self.view.frame.size.height, width: self.viewPickerContainer.frame.size.width, height: self.viewPickerContainer.frame.size.height)
     }
     
+    func isRowBlocked(forIndex: Int)-> Bool
+    {
+        let indexpath = IndexPath(row: forIndex, section: 0)
+        let cell = tableView.cellForRow(at: indexpath) as! QuestionTableCell
+        let cellEndPoint = cell.frame.origin.y +  cell.frame.size.height
+        let pickerStartingPoint = view.bounds.height - viewPickerContainer.bounds.height
+        
+        return cellEndPoint > pickerStartingPoint
+    }
     
+   
+    func swiftTableViewUp()
+    {
+        let currentOffset = tableView.contentOffset
+        tableView.contentOffset = CGPoint(x: 0, y:currentOffset.y - viewPickerContainer.bounds.height)
+    }
+    
+    func shiftTableViewDown()
+    {
+        let currentOffset = tableView.contentOffset
+        tableView.contentOffset = CGPoint(x: 0, y:currentOffset.y  + viewPickerContainer.bounds.height)
+    }
+
 }
 
 // MARK:- TableView Methods
@@ -348,8 +390,10 @@ extension QuestionViewController:UIPickerViewDelegate
         let answer = arrHints[row]
         sentence.answer = answer
         
+        hidePicker()
         let indexPath = IndexPath(item: currentActiveCell!, section: 0)
-        tableView.reloadRows(at: [indexPath], with: .none)
+        //tableView.reloadRows(at: [indexPath], with: .none)
+        tableView.reloadData()
     }
     
 }
@@ -357,8 +401,20 @@ extension QuestionViewController:UIPickerViewDelegate
 extension QuestionViewController:QuestionCellDelegate {
     
     func cellTapped(at index: Int) {
-        currentActiveCell = index
-        showPicker()
+        
+        if isGameRunning {
+            currentActiveCell = index
+            
+            if isRowBlocked(forIndex: index) {
+                isRowBlocked = true
+            }
+            
+            showPicker()
+        }
+        else
+        {
+            showDialogForNewGame()
+        }
     }
 }
 
