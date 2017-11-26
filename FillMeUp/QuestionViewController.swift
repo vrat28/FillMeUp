@@ -19,11 +19,13 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var lblStatus:UILabel!
     @IBOutlet weak var lblCurrentLevel:UILabel!
     
+    @IBOutlet weak var contraintPickerHeight:NSLayoutConstraint!
+    
     var currentActiveCell:Int?
     var arrSentences:[Sentence] = []
     var arrHints:[String] = [" "]
     
-    
+    var offsetDistance :CGFloat = 0
     var isRowBlocked:Bool = false
     var isGameRunning:Bool = false
     
@@ -38,7 +40,7 @@ class QuestionViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         setupColors()
-        self.automaticallyAdjustsScrollViewInsets = false
+        automaticallyAdjustsScrollViewInsets = false
         tableView.estimatedRowHeight = 64
         tableView.rowHeight = UITableViewAutomaticDimension
         viewPickerContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -62,10 +64,28 @@ class QuestionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+
+    
     func setupColors()
     {
         self.pickerView.backgroundColor = FlatTeal()
         lblCurrentLevel.textColor = FlatSkyBlue()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        if UIDevice.current.orientation.isLandscape == true {
+            
+            contraintPickerHeight.constant = 150
+            
+        }
+        else
+        {
+             contraintPickerHeight.constant = 260
+        }
+        
+        
+        viewPickerContainer.layoutIfNeeded()
     }
     
     func setupNavBar()
@@ -140,7 +160,7 @@ class QuestionViewController: UIViewController {
                     }
                     
                     // Convert string -> [String]/ [Sentences]
-                    let arrStrings = Utility.splitSentences(from: jsonStr, limit: self.gameInfo.questionCount)
+                      let arrStrings = Utility.splitSentences(from: jsonStr, limit: self.gameInfo.questionCount)
                     // Convert Array of String array of Models
                     self.arrSentences = arrStrings.map({ (string) -> Sentence in
                         return Sentence(with: string)
@@ -181,6 +201,10 @@ class QuestionViewController: UIViewController {
     
     func btnSubmitClicked()
     {
+        if isGameRunning {
+            isGameRunning = false
+        }
+        
         changeGameStatus(with: false)
         calculateScore()
         
@@ -189,6 +213,7 @@ class QuestionViewController: UIViewController {
             gameInfo.increaseLevel()
             updateLevel()
             callWebServiceToFetchText()
+            isGameRunning = true
         }
         else {
             showDialog()
@@ -269,9 +294,8 @@ class QuestionViewController: UIViewController {
     
     func showDialogForNewGame()
     {
-        let popup = Utility.getPopupDialog(title: StringConstants.kPopupTitle, and: StringConstants.kPopupMessageGameOver)
+        let popup = Utility.getPopupDialogGameOver(title: StringConstants.kPopupTitle, and: StringConstants.kPopupMessageGameOver)
         
-        popup.title = StringConstants.kPopupMessageGameOver
         let dismissBtn = CancelButton(title: StringConstants.kpopupDismiss, height: 40, dismissOnTap: true, action:nil)
         popup.addButton(dismissBtn)
         present(popup, animated: true, completion: nil)
@@ -318,27 +342,29 @@ class QuestionViewController: UIViewController {
         self.viewPickerContainer.frame = CGRect(x: 0, y: self.view.frame.size.height, width: self.viewPickerContainer.frame.size.width, height: self.viewPickerContainer.frame.size.height)
     }
     
-    func isRowBlocked(forIndex: Int)-> Bool
+    func isRowBlocked(forIndex: Int)-> CGFloat
     {
         let indexpath = IndexPath(row: forIndex, section: 0)
         let cell = tableView.cellForRow(at: indexpath) as! QuestionTableCell
         let cellEndPoint = cell.frame.origin.y +  cell.frame.size.height
         let pickerStartingPoint = view.bounds.height - viewPickerContainer.bounds.height
         
-        return cellEndPoint > pickerStartingPoint
+        return cellEndPoint - pickerStartingPoint
     }
+    
+
     
    
     func swiftTableViewUp()
     {
-        let currentOffset = tableView.contentOffset
-        tableView.contentOffset = CGPoint(x: 0, y:currentOffset.y - viewPickerContainer.bounds.height)
+
+        tableView.contentOffset = CGPoint(x: 0, y:offsetDistance + viewPickerContainer.bounds.height)
     }
     
     func shiftTableViewDown()
     {
-        let currentOffset = tableView.contentOffset
-        tableView.contentOffset = CGPoint(x: 0, y:currentOffset.y  + viewPickerContainer.bounds.height)
+       tableView.contentOffset = CGPoint(x: 0, y:offsetDistance  - viewPickerContainer.bounds.height)
+       offsetDistance = 0
     }
 
 }
@@ -392,8 +418,8 @@ extension QuestionViewController:UIPickerViewDelegate
         
         hidePicker()
         let indexPath = IndexPath(item: currentActiveCell!, section: 0)
-        //tableView.reloadRows(at: [indexPath], with: .none)
-        tableView.reloadData()
+        tableView.reloadRows(at: [indexPath], with: .none)
+        
     }
     
 }
@@ -405,8 +431,13 @@ extension QuestionViewController:QuestionCellDelegate {
         if isGameRunning {
             currentActiveCell = index
             
-            if isRowBlocked(forIndex: index) {
+            let Hdiff = isRowBlocked(forIndex: index)
+            
+            if Hdiff > 0 {
+                
+                offsetDistance = Hdiff - 20
                 isRowBlocked = true
+                swiftTableViewUp()
             }
             
             showPicker()

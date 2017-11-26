@@ -46,8 +46,8 @@ class QuestionTableCell: UITableViewCell {
     func setAttributedText(input:String, range:NSRange)
     {
         let mutableString:NSMutableAttributedString = NSMutableAttributedString(string: input)
-        let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue,
-                                  NSForegroundColorAttributeName : UIColor.blue] as [String : Any]
+        let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleThick.rawValue,
+                                  NSForegroundColorAttributeName : UIColor.red] as [String : Any]
         mutableString.addAttributes(underlineAttribute, range: range)
         lblText.attributedText = mutableString
     }

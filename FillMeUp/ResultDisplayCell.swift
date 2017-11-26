@@ -55,7 +55,7 @@ class ResultDisplayCell: UITableViewCell {
     func setAttributedString(with sentence:Sentence)-> NSMutableAttributedString
     {
         let mutableString:NSMutableAttributedString = NSMutableAttributedString(string: sentence.displayString!)
-        let attribute = [NSForegroundColorAttributeName: UIColor.white]
+        let attribute = [NSForegroundColorAttributeName: UIColor.red]
         
         mutableString.addAttributes(attribute, range: sentence.range!)
         return mutableString
