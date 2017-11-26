@@ -12,7 +12,7 @@ import SwiftyJSON
 struct ContentQuery {
     
     // Static titles for query
-    static let contentTitles = ["Google","Twitter","Apple","Basketball","Interstellar","Duolingo","India","Germany","Youtube","Russia","Bodybuilding","Facebook","MTV","Nokia","iOS","Java","Singapore"]
+    static let contentTitles = ["Google","Twitter","Apple","Basketball","India","Germany","Youtube","Bodybuilding","Facebook","MTV","iOS","Singapore"]
     
     static func getRandomContentTitle() -> String
     {

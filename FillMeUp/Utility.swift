@@ -42,7 +42,7 @@ class Utility : NSObject
         if count < limit
         {
            
-            while count < limit
+            while count < limit && count < result.count
             {
                 let random = Int(arc4random_uniform(UInt32(count)))
                 let sentence = result[random]
