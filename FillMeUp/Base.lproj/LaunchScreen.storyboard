@@ -54,7 +54,7 @@
                                     <constraint firstAttribute="height" constant="20" id="czL-tu-506"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="b1z-2J-ETu">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="b1z-2J-ETu">
                                 <rect key="frame" x="75.5" y="181" width="225" height="225"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="b1z-2J-ETu" secondAttribute="height" multiplier="1:1" id="5pn-CA-zNZ"/>
