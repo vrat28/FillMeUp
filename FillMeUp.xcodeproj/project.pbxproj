@@ -211,7 +211,7 @@
 				TargetAttributes = {
 					374035691FC1B06600232D11 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = 5XUW2EJ8TL;
+						DevelopmentTeam = 2SL2J3FRZ6;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -441,12 +441,14 @@
 			baseConfigurationReference = B7042E9DD0A0A6A7848AED77 /* Pods-FillMeUp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5XUW2EJ8TL;
+				DEVELOPMENT_TEAM = 2SL2J3FRZ6;
 				INFOPLIST_FILE = FillMeUp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vrat28.FillMeUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -455,12 +457,14 @@
 			baseConfigurationReference = 6BA4310D622485EED56C8874 /* Pods-FillMeUp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5XUW2EJ8TL;
+				DEVELOPMENT_TEAM = 2SL2J3FRZ6;
 				INFOPLIST_FILE = FillMeUp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vrat28.FillMeUp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
