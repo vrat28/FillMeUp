@@ -33,11 +33,11 @@ class ResultDisplayCell: UITableViewCell {
             var detailStr = "Correct Answer : \(sentence.missingText!)\nYou Choosed:"
             if let answer = sentence.answer {
                 detailStr = detailStr + "\(answer)"
-                 lblSentence.attributedText = setAttributedString(with: sentence)
+                 lblSentence.attributedText = setAttributedString(with: sentence,isAnswered: true)
             }
             else
             {
-                lblSentence.text = sentence.displayString
+                lblSentence.attributedText = setAttributedString(with: sentence,isAnswered: false)
             }
             lblExplanation.text = detailStr
            
@@ -52,15 +52,27 @@ class ResultDisplayCell: UITableViewCell {
     }
 
     
-    func setAttributedString(with sentence:Sentence)-> NSMutableAttributedString
+    func setAttributedString(with sentence:Sentence, isAnswered:Bool)-> NSMutableAttributedString
     {
-        let mutableString:NSMutableAttributedString = NSMutableAttributedString(string: sentence.displayString!)
-        let attribute = [NSForegroundColorAttributeName: UIColor.red]
+        var  mutableString:NSMutableAttributedString
+        var color:UIColor
+        
+        if isAnswered {
+            mutableString = NSMutableAttributedString(string: sentence.displayString!)
+            color = UIColor.flatRed
+        }
+        else {
+           mutableString = NSMutableAttributedString(string: sentence.text)
+             color = UIColor.flatGreen
+        }
+        let attribute = [NSForegroundColorAttributeName:color]
         
         mutableString.addAttributes(attribute, range: sentence.range!)
         return mutableString
     }
 
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

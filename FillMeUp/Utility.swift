@@ -104,7 +104,7 @@ class Utility : NSObject
     class func getPopupDialog(title:String,and message:String)-> PopupDialog
     {
         
-            let popup = PopupDialog(title: StringConstants.kPopupTitle, message: StringConstants.kPopupMessage)
+            let popup = PopupDialog(title: StringConstants.kPopupTitle, message:message)
             
             let pv = PopupDialogDefaultView.appearance()
             pv.titleFont    = UIFont(name: "HelveticaNeue-Light", size: 16)!

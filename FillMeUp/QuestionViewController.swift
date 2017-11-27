@@ -294,7 +294,7 @@ class QuestionViewController: UIViewController {
     
     func showDialogForNewGame()
     {
-        let popup = Utility.getPopupDialogGameOver(title: StringConstants.kPopupTitle, and: StringConstants.kPopupMessageGameOver)
+        let popup = Utility.getPopupDialog(title: StringConstants.kPopupTitle, and: StringConstants.kPopupMessageGameOver)
         
         let dismissBtn = CancelButton(title: StringConstants.kpopupDismiss, height: 40, dismissOnTap: true, action:nil)
         popup.addButton(dismissBtn)
@@ -347,7 +347,7 @@ class QuestionViewController: UIViewController {
         let indexpath = IndexPath(row: forIndex, section: 0)
         let cell = tableView.cellForRow(at: indexpath) as! QuestionTableCell
         let cellEndPoint = cell.frame.origin.y +  cell.frame.size.height
-        let pickerStartingPoint = view.bounds.height - viewPickerContainer.bounds.height
+        let pickerStartingPoint = view.bounds.height - viewPickerContainer.frame.height
         
         return cellEndPoint - pickerStartingPoint
     }
@@ -435,7 +435,7 @@ extension QuestionViewController:QuestionCellDelegate {
             
             if Hdiff > 0 {
                 
-                offsetDistance = Hdiff - 20
+                offsetDistance = Hdiff - 30
                 isRowBlocked = true
                 swiftTableViewUp()
             }

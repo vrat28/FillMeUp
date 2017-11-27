@@ -41,13 +41,14 @@ class Sentence {
                 var rangeToSearch:NSRange = range!
                 let maxLength:Int = max(answerText.characters.count, (missingText?.characters.count)!)
                 rangeToSearch.length = maxLength
-                
-            let str = (text as NSString).replacingOccurrences(of:missingText!, with: answerText, options: .backwards, range:rangeToSearch)
+              
+
+            let str = (text as NSString).replacingOccurrences(of: missingText!, with: answerText, options: .backwards, range:rangeToSearch)
             return str
         }
             else
             {
-                let str = (text as NSString).replacingOccurrences(of:missingText!, with: "x", options: .backwards, range: range!)
+                let str = (text as NSString).replacingOccurrences(of:missingText!, with: " ", options: .backwards, range: range!)
                // let str = text.replacingOccurrences(of: missingText!, with: "x")
                 return str
             }
