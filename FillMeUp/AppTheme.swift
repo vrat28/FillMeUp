@@ -21,3 +21,18 @@ struct AppTheme {
     static let kIndicatorWidth:CGFloat = 60
      static let kIndicatorHeight:CGFloat = 60
 }
+
+struct TagListTheme {
+    
+    static let kXMarginPad:CGFloat = 15
+    static let kXMargin:CGFloat = 5
+    static let kYMarginPad:CGFloat = 15
+    static let kYMargin:CGFloat = 5
+    
+    static let kXPadding:CGFloat = 5
+    static let kXPaddingPad:CGFloat = 10
+    static let kYPadding:CGFloat = 5
+    static let kYPaddingPad:CGFloat = 10
+    
+    
+}

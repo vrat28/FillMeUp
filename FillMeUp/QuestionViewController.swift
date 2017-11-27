@@ -76,8 +76,16 @@ class QuestionViewController: UIViewController {
         switch UIDevice.current.userInterfaceIdiom {
         case .pad:
             tagListView.textFont = UIFont.systemFont(ofSize: 30)
+            tagListView.marginX = TagListTheme.kXMarginPad
+            tagListView.marginY = TagListTheme.kYMarginPad
+            tagListView.paddingX = TagListTheme.kXPaddingPad
+            tagListView.paddingY = TagListTheme.kYPaddingPad
         default:
             tagListView.textFont = UIFont.systemFont(ofSize: 24)
+            tagListView.marginX = TagListTheme.kXMargin
+            tagListView.marginY = TagListTheme.kYMargin
+            tagListView.paddingX = TagListTheme.kXPadding
+            tagListView.paddingY = TagListTheme.kYPadding
         }
         
         tagListView.alignment = .center
@@ -106,17 +114,6 @@ class QuestionViewController: UIViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        if UIDevice.current.orientation.isLandscape == true {
-            
-            contraintPickerHeight.constant = 150
-            
-        }
-        else
-        {
-             contraintPickerHeight.constant = 260
-        }
-        
         
         viewPickerContainer.layoutIfNeeded()
     }
