@@ -146,9 +146,7 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="EAK-tQ-ngY" secondAttribute="bottom" constant="10" id="E1A-vS-n99"/>
                                     <constraint firstItem="EAK-tQ-ngY" firstAttribute="top" secondItem="qtP-kX-54K" secondAttribute="bottom" constant="10" id="GrI-H6-bTJ"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Ixd-hw-wAF">
-                                        <variation key="heightClass=compact-widthClass=regular" constant="120"/>
-                                    </constraint>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Ixd-hw-wAF"/>
                                     <constraint firstItem="qtP-kX-54K" firstAttribute="leading" secondItem="15E-yo-fLu" secondAttribute="leading" id="Ydt-y6-laa"/>
                                     <constraint firstAttribute="trailing" secondItem="EAK-tQ-ngY" secondAttribute="trailing" id="j3r-Ou-Ppc"/>
                                     <constraint firstAttribute="trailing" secondItem="qtP-kX-54K" secondAttribute="trailing" id="qvW-Wb-QKj"/>

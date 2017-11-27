@@ -73,7 +73,13 @@ class QuestionViewController: UIViewController {
 
     func setUpTagListView()
     {
-        tagListView.textFont = UIFont.systemFont(ofSize: 24)
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            tagListView.textFont = UIFont.systemFont(ofSize: 30)
+        default:
+            tagListView.textFont = UIFont.systemFont(ofSize: 24)
+        }
+        
         tagListView.alignment = .center
     }
     
@@ -339,7 +345,7 @@ class QuestionViewController: UIViewController {
         
       //  let selectedOption = pickerView.selectedRow(inComponent: 0)
       //  pickerView(self.pickerView, didSelectRow: selectedOption, inComponent: 0)
-hidePicker()
+        hidePicker()
     }
     
     func showPicker()
@@ -445,8 +451,7 @@ extension QuestionViewController:UIPickerViewDelegate
         let sentence = arrSentences[currentActiveCell!]
         let answer = arrHints[row]
         sentence.answer = answer
-        
-        hidePicker()
+    
         let indexPath = IndexPath(item: currentActiveCell!, section: 0)
         tableView.reloadRows(at: [indexPath], with: .none)
         
