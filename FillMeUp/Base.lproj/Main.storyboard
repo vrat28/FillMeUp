@@ -75,12 +75,60 @@
                                     <outlet property="delegate" destination="QJe-Bf-Pkn" id="8J0-Cq-Ddj"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15E-yo-fLu">
-                                <rect key="frame" x="0.0" y="1366" width="1024" height="260"/>
+                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="15E-yo-fLu">
+                                <rect key="frame" x="0.0" y="1366" width="1024" height="100"/>
                                 <subviews>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRO-6b-TiF">
-                                        <rect key="frame" x="0.0" y="44" width="1024" height="216"/>
-                                    </pickerView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAK-tQ-ngY" customClass="TagListView" customModule="TagListView">
+                                        <rect key="frame" x="0.0" y="54" width="1024" height="36"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
+                                                <color key="value" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="tagBackgroundColor">
+                                                <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="tagHighlightedBackgroundColor">
+                                                <color key="value" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="tagSelectedBackgroundColor">
+                                                <color key="value" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingY">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="paddingX">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="marginY">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="marginX">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="removeButtonIconSize">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="removeIconLineWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="removeIconLineColor">
+                                                <color key="value" red="0.0" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtP-kX-54K">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
                                         <items>
@@ -96,16 +144,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="eRO-6b-TiF" firstAttribute="leading" secondItem="15E-yo-fLu" secondAttribute="leading" id="8OH-M2-BNI"/>
-                                    <constraint firstAttribute="bottom" secondItem="eRO-6b-TiF" secondAttribute="bottom" id="C5X-EF-r7T"/>
-                                    <constraint firstAttribute="height" constant="260" id="Ixd-hw-wAF">
-                                        <variation key="heightClass=compact-widthClass=regular" constant="150"/>
+                                    <constraint firstAttribute="bottom" secondItem="EAK-tQ-ngY" secondAttribute="bottom" constant="10" id="E1A-vS-n99"/>
+                                    <constraint firstItem="EAK-tQ-ngY" firstAttribute="top" secondItem="qtP-kX-54K" secondAttribute="bottom" constant="10" id="GrI-H6-bTJ"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Ixd-hw-wAF">
+                                        <variation key="heightClass=compact-widthClass=regular" constant="120"/>
                                     </constraint>
-                                    <constraint firstAttribute="trailing" secondItem="eRO-6b-TiF" secondAttribute="trailing" id="Q3j-QY-NuK"/>
                                     <constraint firstItem="qtP-kX-54K" firstAttribute="leading" secondItem="15E-yo-fLu" secondAttribute="leading" id="Ydt-y6-laa"/>
-                                    <constraint firstItem="eRO-6b-TiF" firstAttribute="top" secondItem="qtP-kX-54K" secondAttribute="bottom" id="mEp-Ra-cqr"/>
+                                    <constraint firstAttribute="trailing" secondItem="EAK-tQ-ngY" secondAttribute="trailing" id="j3r-Ou-Ppc"/>
                                     <constraint firstAttribute="trailing" secondItem="qtP-kX-54K" secondAttribute="trailing" id="qvW-Wb-QKj"/>
                                     <constraint firstItem="qtP-kX-54K" firstAttribute="top" secondItem="15E-yo-fLu" secondAttribute="top" id="rMd-3f-Jt8"/>
+                                    <constraint firstItem="EAK-tQ-ngY" firstAttribute="leading" secondItem="15E-yo-fLu" secondAttribute="leading" id="y8S-u8-pTv"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9NK-fm-LtE">
@@ -169,10 +217,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1eM-YF-bF5" firstAttribute="top" secondItem="15E-yo-fLu" secondAttribute="bottom" constant="-260" id="78z-Ep-ekK"/>
                             <constraint firstItem="9NK-fm-LtE" firstAttribute="leading" secondItem="QwS-9r-uEN" secondAttribute="leading" id="C9F-i6-fem"/>
                             <constraint firstItem="Liy-2V-rsy" firstAttribute="leading" secondItem="QwS-9r-uEN" secondAttribute="leading" id="GJ2-YR-Vqu"/>
                             <constraint firstItem="15E-yo-fLu" firstAttribute="leading" secondItem="QwS-9r-uEN" secondAttribute="leading" id="KH5-aL-FlR"/>
+                            <constraint firstItem="15E-yo-fLu" firstAttribute="top" secondItem="Liy-2V-rsy" secondAttribute="bottom" id="XvX-gF-Avf"/>
                             <constraint firstItem="Liy-2V-rsy" firstAttribute="top" secondItem="9NK-fm-LtE" secondAttribute="bottom" id="Y6k-UF-J0J"/>
                             <constraint firstItem="9NK-fm-LtE" firstAttribute="top" secondItem="8wF-DM-LlI" secondAttribute="bottom" id="aNt-0u-fsi"/>
                             <constraint firstAttribute="trailing" secondItem="9NK-fm-LtE" secondAttribute="trailing" id="iWc-55-EAp"/>
@@ -186,8 +234,8 @@
                         <outlet property="contraintPickerHeight" destination="Ixd-hw-wAF" id="m8D-bt-Ux5"/>
                         <outlet property="lblCurrentLevel" destination="yu7-4F-gOb" id="2A3-ru-SQg"/>
                         <outlet property="lblStatus" destination="Ije-AB-Y8l" id="fnk-3L-w2h"/>
-                        <outlet property="pickerView" destination="eRO-6b-TiF" id="eM0-Cq-r2w"/>
                         <outlet property="tableView" destination="Liy-2V-rsy" id="pEP-Td-9bO"/>
+                        <outlet property="tagListView" destination="EAK-tQ-ngY" id="sIT-gq-UKL"/>
                         <outlet property="viewPickerContainer" destination="15E-yo-fLu" id="Cs4-eb-ec4"/>
                     </connections>
                 </viewController>

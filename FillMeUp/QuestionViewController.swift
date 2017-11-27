@@ -9,6 +9,7 @@
 import UIKit
 import ChameleonFramework
 import PopupDialog
+import TagListView
 
 class QuestionViewController: UIViewController {
     
@@ -19,6 +20,7 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var lblStatus:UILabel!
     @IBOutlet weak var lblCurrentLevel:UILabel!
     
+    @IBOutlet weak var tagListView:TagListView!
     @IBOutlet weak var contraintPickerHeight:NSLayoutConstraint!
     
     var currentActiveCell:Int?
@@ -45,18 +47,22 @@ class QuestionViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         viewPickerContainer.translatesAutoresizingMaskIntoConstraints = false
         callWebServiceToFetchText()
+        setUpTagListView()
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+      
         setDefaultLevel()
         hidePickerWithoutAnimation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        pickerView.delegate = nil
+        tagListView.delegate = nil
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,10 +71,31 @@ class QuestionViewController: UIViewController {
     }
     
 
+    func setUpTagListView()
+    {
+        tagListView.textFont = UIFont.systemFont(ofSize: 24)
+        tagListView.alignment = .center
+    }
+    
+    func addTagsToTagList(tags:[String]) {
+        
+        tagListView.removeAllTags()
+        for tag in tags  {
+            
+            let tagview = tagListView.addTag(tag)
+            let index  = arrHints.index(of: tag)
+            tagview.tag = (index)!
+            tagview.isSelected = false
+            tagview.selectedBackgroundColor = UIColor.flatGreen
+            tagview.backgroundColor = UIColor.flatRed
+   
+        }
+        
+    }
     
     func setupColors()
     {
-        self.pickerView.backgroundColor = FlatTeal()
+        //self.pickerView.backgroundColor = FlatTeal()
         lblCurrentLevel.textColor = FlatSkyBlue()
     }
     
@@ -102,8 +129,11 @@ class QuestionViewController: UIViewController {
     func configurePicker()
     {
         DispatchQueue.main.async {
-            self.pickerView.delegate = self
-            self.pickerView.dataSource = self
+           // self.pickerView.delegate = self
+           // self.pickerView.dataSource = self
+            
+            self.tagListView.delegate = self
+            self.addTagsToTagList(tags: self.arrHints)
         }
        
     }
@@ -307,9 +337,9 @@ class QuestionViewController: UIViewController {
     @IBAction func pickerDoneButtonClicked(sender:UIBarButtonItem)
     {
         
-        let selectedOption = pickerView.selectedRow(inComponent: 0)
-        pickerView(self.pickerView, didSelectRow: selectedOption, inComponent: 0)
-
+      //  let selectedOption = pickerView.selectedRow(inComponent: 0)
+      //  pickerView(self.pickerView, didSelectRow: selectedOption, inComponent: 0)
+hidePicker()
     }
     
     func showPicker()
@@ -435,7 +465,7 @@ extension QuestionViewController:QuestionCellDelegate {
             
             if Hdiff > 0 {
                 
-                offsetDistance = Hdiff - 30
+                offsetDistance = Hdiff
                 isRowBlocked = true
                 swiftTableViewUp()
             }
@@ -449,3 +479,33 @@ extension QuestionViewController:QuestionCellDelegate {
     }
 }
 
+extension QuestionViewController : TagListViewDelegate {
+    
+  
+    
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        
+       let index = tagView.tag
+   
+      tagView.isSelected = !tagView.isSelected
+        
+        let sentence = arrSentences[currentActiveCell!]
+        let answer = arrHints[index]
+        
+        if  let previousAnswer = sentence.answer {
+            
+            if  let previousindex = arrHints.index(of: previousAnswer) {
+                 let previousTagView = tagListView.tagViews[previousindex]
+                
+                previousTagView.isSelected = false
+                previousTagView.tagBackgroundColor = UIColor.flatRed
+            }
+        }
+    
+        sentence.answer = answer
+        let indexPath = IndexPath(item: currentActiveCell!, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
+        
+        
+    }
+}
