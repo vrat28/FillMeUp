@@ -10,5 +10,6 @@ target 'FillMeUp' do
     pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
     pod 'NVActivityIndicatorView'
     pod 'PopupDialog', '~> 0.5.4'
+    pod 'TagListView', '~> 1.0'
 
 end

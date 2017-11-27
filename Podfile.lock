@@ -7,12 +7,14 @@ PODS:
   - NVActivityIndicatorView/Presenter (3.7.0)
   - PopupDialog (0.5.4)
   - SwiftyJSON (3.1.4)
+  - TagListView (1.2.0)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - NVActivityIndicatorView
   - PopupDialog (~> 0.5.4)
   - SwiftyJSON
+  - TagListView (~> 1.0)
 
 EXTERNAL SOURCES:
   ChameleonFramework:
@@ -28,7 +30,8 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
   PopupDialog: 75cf955693590b0cb2fdde00223fb65d99c57247
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  TagListView: 999e1df50c0f6b9ca927fae705c86a7e3b6ee9ba
 
-PODFILE CHECKSUM: edc11ce454d20c9e7997fc96b5249e3f54b321db
+PODFILE CHECKSUM: f57d188369e6a771ec619302a00587a4ddc15a88
 
 COCOAPODS: 1.2.0
